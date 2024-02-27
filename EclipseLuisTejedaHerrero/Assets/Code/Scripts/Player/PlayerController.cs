@@ -49,42 +49,46 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Si el contador de KnockBack se ha vaciado, el jugador recupera el control del movimiento
-        if(_knockBackCounter <= 0)
+        // if (_knockBackCounter <= 0)
+
+        //El jugador se mueve a una velocidad dada en X, y la velocidad que ya tuviera en Y
+        _theRB.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _theRB.velocity.y);
+
+        //La variable isGrounded se hará true siempre que el círculo físico que hemos creado detecte suelo, sino será falsa
+        //OverlapCircle(punto donde se genera el círculo, radio del círculo, layer a detectar)
+        _isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
+
+        //Si pulsamos el botón de salto
+        if (Input.GetButtonDown("Jump"))
         {
-            //El jugador se mueve a una velocidad dada en X, y la velocidad que ya tuviera en Y
-            _theRB.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _theRB.velocity.y);
-
-            //La variable isGrounded se hará true siempre que el círculo físico que hemos creado detecte suelo, sino será falsa
-            //OverlapCircle(punto donde se genera el círculo, radio del círculo, layer a detectar)
-            _isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
-
-            //Si pulsamos el botón de salto
-            if (Input.GetButtonDown("Jump"))
+            //Si el jugador está en el suelo
+            if (_isGrounded)
             {
-                //Si el jugador está en el suelo
-                if (_isGrounded)
+                //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
+                _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                //Una vez en el suelo, reactivamos la posibilidad de doble salto
+                _canDoubleJump = true;
+            }
+            //Si el jugador no está en el suelo
+            else
+            {
+                //Si canDoubleJump es verdadera
+                if (_canDoubleJump)
                 {
                     //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
                     _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
-                    //Una vez en el suelo, reactivamos la posibilidad de doble salto
-                    _canDoubleJump = true;
-                }
-                //Si el jugador no está en el suelo
-                else
-                {
-                    //Si canDoubleJump es verdadera
-                    if (_canDoubleJump)
-                    {
-                        //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
-                        _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
-                        //Hacemos que no se pueda volver a saltar de nuevo
-                        _canDoubleJump = false;
-                    }
+                    //Hacemos que no se pueda volver a saltar de nuevo
+                    _canDoubleJump = false;
                 }
             }
+        }
+
+        
+           
+        
             //Girar el Sprite del Jugador según su dirección de movimiento(velocidad)
             //Si el jugador se mueve hacia la izquierda
-            if (_theRB.velocity.x < 0)
+       /*     if (_theRB.velocity.x < 0)
             {
                 //No cambiamos la dirección del sprite
                 _theSR.flipX = false;
@@ -115,7 +119,7 @@ public class PlayerController : MonoBehaviour
         //Cambiamos el valor del parámetro del Animator "moveSpeed", dependiendo del valor en X de la velocidad del Rigidbody
         _anim.SetFloat("moveSpeed", Mathf.Abs(_theRB.velocity.x));//Mathf.Abs hace que un valor negativo sea positivo, lo que nos permite que al movernos a la izquierda también se anime esta acción
         //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
-        _anim.SetBool("isGrounded", _isGrounded);
+        _anim.SetBool("isGrounded", _isGrounded); */
     }
 
     //Método para gestionar el KnockBack producido al jugador al hacerse daño
