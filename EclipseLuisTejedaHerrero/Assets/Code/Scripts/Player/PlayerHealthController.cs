@@ -81,8 +81,8 @@ public class PlayerHealthController : MonoBehaviour
                 //Cambiamos el color del sprite, mantenemos el RGB y ponemos la opacidad a la mitad
                 _sR.color = new Color(_sR.color.r, _sR.color.g, _sR.color.b, .5f);
                 //Llamamos al método que hace que el jugador realice el KnockBack
-                _pCReference.Knockback();
-            }
+/*                _pCReference.Knockback();
+*/            }
 
             //Actualizamos la UI (los corazones)
             _uIReference.UpdateHealthDisplay();
