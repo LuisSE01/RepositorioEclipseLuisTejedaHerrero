@@ -685,7 +685,8 @@ Transform:
   m_LocalPosition: {x: -8.36, y: -0.03999996, z: 0}
   m_LocalScale: {x: 2.2017, y: 3.1577, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1752008637}
   m_Father: {fileID: 1786182677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1191227073
@@ -825,7 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpForce: 0
+  jumpForce: 8
   groundCheckPoint: {fileID: 1752008637}
   whatIsGround:
     serializedVersion: 2
@@ -1187,7 +1188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1752008637}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GroundPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1201,12 +1202,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752008636}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.38, y: -2.71, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.009084098, y: -1.0042119, z: 0}
+  m_LocalScale: {x: 0.45419452, y: 0.31668618, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1786182677}
+  m_Father: {fileID: 1191227072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767442047
 GameObject:
@@ -1271,7 +1272,6 @@ Transform:
   - {fileID: 1191227072}
   - {fileID: 494589578}
   - {fileID: 1527581585}
-  - {fileID: 1752008637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807

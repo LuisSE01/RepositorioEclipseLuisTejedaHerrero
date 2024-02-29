@@ -56,45 +56,34 @@ public class PlayerController : MonoBehaviour
         //El jugador se mueve a una velocidad dada en X, y la velocidad que ya tuviera en Y
         _theRB.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _theRB.velocity.y);
 
-
-
-
-
         //La variable isGrounded se hará true siempre que el círculo físico que hemos creado detecte suelo, sino será falsa
         //OverlapCircle(punto donde se genera el círculo, radio del círculo, layer a detectar)
-        /*        _isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
-        */
+        _isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
+
         //Si pulsamos el botón de salto
-        /*        if (Input.GetButtonDown("Jump"))
-                {
-                    //Si el jugador está en el suelo
-                    if (_isGrounded)
-                    {
-                        //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
-                        _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
-                        //Una vez en el suelo, reactivamos la posibilidad de doble salto
-                        _canDoubleJump = true;
-                    }
-                    //Si el jugador no está en el suelo
-                    else
-                    {
-                        //Si canDoubleJump es verdadera
-                        if (_canDoubleJump)
-                        {
-                            //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
-                            _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
-                            //Hacemos que no se pueda volver a saltar de nuevo
-                            _canDoubleJump = false;
-                        }
-                    }
-                }*/
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
-            _theRB.AddForce(Vector2.up * jumpAmount, ForceMode2D.Impulse);
+            //Si el jugador está en el suelo
+            if (_isGrounded)
+            {
+                //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
+                _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                //Una vez en el suelo, reactivamos la posibilidad de doble salto
+                _canDoubleJump = true;
+            }
+            //Si el jugador no está en el suelo
+            else
+            {
+                //Si canDoubleJump es verdadera
+                if (_canDoubleJump)
+                {
+                    //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
+                    _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                    //Hacemos que no se pueda volver a saltar de nuevo
+                    _canDoubleJump = false;
+                }
+            }
         }
-
-
 
         //Girar el Sprite del Jugador según su dirección de movimiento(velocidad)
         //Si el jugador se mueve hacia la izquierda
