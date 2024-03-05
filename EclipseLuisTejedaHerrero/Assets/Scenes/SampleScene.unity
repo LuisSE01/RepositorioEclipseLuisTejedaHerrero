@@ -664,8 +664,8 @@ GameObject:
   - component: {fileID: 1191227072}
   - component: {fileID: 1191227073}
   - component: {fileID: 1191227075}
-  - component: {fileID: 1191227077}
   - component: {fileID: 1191227076}
+  - component: {fileID: 1191227077}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -811,7 +811,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1191227077
 MonoBehaviour:
@@ -822,18 +822,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1191227071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdee63feecfcbc74884270abba8ec875, type: 3}
+  m_Script: {fileID: 11500000, guid: 49a5b57bc1ba7154d8a7425caaec758b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 8
-  groundCheckPoint: {fileID: 1752008637}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  knockBackForce: 0
-  knockBackLength: 0
-  jumpAmount: 10
+  moveSpeed: 5
+  jumpForce: 50
+  dashForce: 500
+  dashCooldown: 2
+  doubleTapTimeThreshold: 0.5
+  isGrounded: 0
+  canDash: 1
 --- !u!1 &1224635400
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,12 +18,12 @@ public class PlayerController : MonoBehaviour
     //Variable para saber si podemos hacer un doble salto
     private bool _canDoubleJump;
 
-    //Variable para la fuerza del KnockBack
+/*    //Variable para la fuerza del KnockBack
     public float knockBackForce;
     //Variables para controlar el contador de tiempo de Knocback
     public float knockBackLength; //Variable que nos sirve para rellenar el contador
     private float _knockBackCounter; //Contador de tiempo
-
+*/
 
     //El rigidbody del jugador
     //Barrabaja indica que la variable es privada
@@ -33,21 +33,24 @@ public class PlayerController : MonoBehaviour
     //Referencia al SpriteRenderer del jugador
     private SpriteRenderer _theSR;
 
-    public float jumpAmount = 10;
+    // Implementacion Dash
+    public float dashForce = 10f;
+    public float dashCooldown = 2f;
 
-    // Start is called before the first frame update
+    private Rigidbody2D rb;
+    private Vector2 dashDirection;
+    private bool canDash = true;
+
+
     void Start()
     {
-        //Inicializamos el Rigidbody del jugador
         //GetComponent => Va al objeto donde está metido este código y busca el componente indicado
+
         _theRB = GetComponent<Rigidbody2D>();
-        //Inicializamos el Animator del jugador
         _anim = GetComponent<Animator>();
-        //Inicializamos el SpriteRenderer del jugador
         _theSR = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Si el contador de KnockBack se ha vaciado, el jugador recupera el control del movimiento
@@ -85,6 +88,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (canDash && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
+        {
+            Dash();
+        }
+
         //Girar el Sprite del Jugador según su dirección de movimiento(velocidad)
         //Si el jugador se mueve hacia la izquierda
         /*     if (_theRB.velocity.x < 0)
@@ -120,6 +128,28 @@ public class PlayerController : MonoBehaviour
          //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
          _anim.SetBool("isGrounded", _isGrounded); */
     }
+
+
+    void Dash()
+    {
+        // Get the direction the player is facing
+        Vector2 playerDirection = transform.right;
+
+        // Apply force in that direction
+        rb.velocity = playerDirection * dashForce;
+
+        // Start cooldown
+        canDash = false;
+        Invoke("ResetDash", dashCooldown);
+    }
+
+    void ResetDash()
+    {
+        canDash = true;
+    }
+
+
+
 
     //Método para gestionar el KnockBack producido al jugador al hacerse daño
     /*public void Knockback()
